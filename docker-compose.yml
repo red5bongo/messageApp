@@ -12,6 +12,12 @@ services:
       - redis-data:/data
     expose:
       - "6379"
+  log:
+    command: -t <TOKEN> -j -a host=`uname -n`
+    image: logentries/docker-logentries
+    restart: always
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
   app:
     image: message-app:v0.3 # New version taking into account REDIS_URL
     ports:
